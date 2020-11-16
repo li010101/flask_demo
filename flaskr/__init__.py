@@ -30,7 +30,12 @@ def create_app(test_config=None):
 
     @app.route('/hello')
     def hello():
-        return "hello world"
+        return  "hello world"
 
-    return  app
+    # 注册视图
+    from . import auth
+    app.register_blueprint(auth.bp)
+
+    return app
+
 
