@@ -14,12 +14,12 @@ def create_app(test_config=None):
     # 创建应用实例
     app = Flask(__name__, instance_relative_config=True)
     # 进行初始配置
-    app.config.from_mapping(
-        SECKET_KEY='dev',
-        SESSION_TYPE="filesystem",
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3306/flask_demo'
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        # SESSION_TYPE="filesystem",
+    )
     # 创建数据库对象
     # db = SQLAlchemy(app)
 
@@ -44,7 +44,13 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # 注册视图
-    from . import auth
-    app.register_blueprint(auth.bp)
+    # from . import auth
+    from . import auth2
+    app.register_blueprint(auth2.bp)
+
+    # 注册博客
+    from . import blog
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
