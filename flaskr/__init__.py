@@ -16,6 +16,7 @@ def create_app(test_config=None):
     # 进行初始配置
     app.config.from_mapping(
         SECKET_KEY='dev',
+        SESSION_TYPE="filesystem",
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3306/flask_demo'
